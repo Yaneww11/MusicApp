@@ -1,54 +1,29 @@
-<!-- Catalog with Albums-->
-<section id="catalogPage">
+{% extends 'common/base.html' %}
 
-    <!--  If No albums in catalog -->
-    <p>No Albums in Catalog!</p>
+{% block content %}
+    <!-- Catalog with Albums-->
+    <section id="catalogPage">
 
-    <!-- If albums in catalog -->
-    <h1>All Albums</h1>
-    <!-- First Card-Box in catalog -->
-    <div class="card-box">
-        <img src="/static/images/BrandiCarlile.png" alt="Cover Image">
-        <div>
-            <div class="text-center">
-                <p class="name">Name: In These Silent Days</p>
-                <p class="price">Price: $12.80</p>
-            </div>
-            <div class="btn-group">
-                <a href="#">Details</a>
-            </div>
-        </div>
-    </div>
-    <!-- End First Card-Box in catalog -->
+        {% if not albums %}
+            <p>No Albums in Catalog!</p>
+        {% else %}
+            <h1>All Albums</h1>
+            <!-- First Card-Box in catalog -->
+            {% for album in albums %}
+                <div class="card-box">
+                    <img src="{{ album.image_url }}" alt="Cover Image">
+                    <div>
+                        <div class="text-center">
+                            <p class="name">Name: {{ album.album_name}}</p>
+                            <p class="price">Price: ${{ album.price }}</p>
+                        </div>
+                        <div class="btn-group">
+                            <a href="{% url 'details album' id=album.id %}">Details</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
 
-    <!-- Second Card-Box in catalog -->
-    <div class="card-box">
-        <img src="/static/images/pinkFloyd.jpg">
-        <div>
-            <div class="text-center">
-                <p class="name">Name: The Dark Side of the Moon</p>
-                <p class="price">Price: $28.75</p>
-            </div>
-            <div class="btn-group">
-                <a href="#">Details</a>
-            </div>
-        </div>
-    </div>
-    <!-- End Second Card-Box in catalog -->
-
-    <!-- Third Card-Box in catalog -->
-    <div class="card-box">
-        <img src="/static/images/Lorde.jpg">
-        <div>
-            <div class="text-center">
-                <p class="name">Name: Melodrama</p>
-                <p class="price">Price: $7.33</p>
-            </div>
-            <div class="btn-group">
-                <a href="#">Details</a>
-            </div>
-        </div>
-    </div>
-    <!-- End Third Card-Box in catalog -->
-
-</section>
+    </section>
+{% endblock %}
