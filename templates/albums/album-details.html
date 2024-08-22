@@ -8,22 +8,27 @@
 
             <div class="albumCover">
                 <!-- Album Image -->
-                <img src="\{% static 'images/Lorde.jpg' %}" alt="Cover Image">
+                <img src="{{ album.image_url }}" alt="Cover Image">
             </div>
 
             <div class="albumInfo">
 
                 <div class="albumText">
                     <!-- Album Info -->
-                    <h1>Name: Melodrama</h1>
-                    <h4>Price: $7.33</h4>
-                    <h4>Songs: Song Name 1 | Song Name 2 | Song Name 3</h4>
+                    <h1>{{ album.album_name}}</h1>
+                    <h4>{{ album.price }}</h4>
+                    <h4>Songs:
+                        {% for song in album.songs %}
+                            <a class="link_song" href="#"> {{ song.song_name }}</a>
+                            {% if not forloop.last %} | {% endif %}
+                        {% endfor %}
+                    </h4>
                 </div>
 
                 <div class="actionBtn">
                     <!-- Album Buttons -->
-                    <a href="#" class="edit">Edit</a>
-                    <a href="#" class="remove">Delete</a>
+                    <a href="{% url 'edit album' id=album.id %}" class="edit">Edit</a>
+                    <a href="{% url 'delete album' id=album.id %}" class="remove">Delete</a>
                 </div>
 
             </div>
